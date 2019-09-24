@@ -26,6 +26,53 @@ namespace PRSDatabaseProject.Controllers
         {
             return await _context.Requests.ToListAsync();
         }
+        // GET: api/GetRequestsForReview
+        [Route("/api/GetRequestsForReview/{userid}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Request>>> GetRequestsForReview(int userid) {
+            return await _context // the database
+                            .Requests // the entity
+                            .Where(r => r.Status == "Review" && r.UserId != userid) //filter for review
+                            .ToListAsync(); //return a collection
+        }
+
+        // GET: api/SetStatusReview
+        [Route("/api/SetStatusReview/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<Request>> SetStatusReview(int id) {
+            var request = await _context.Requests.FindAsync(id);
+            if (request == null) {
+                return NotFound();
+            }
+            request.Status = "Review";
+            _context.SaveChanges();
+            return Ok();
+        }
+        // GET: api/SetStatusApproved
+        [Route("/api/SetStatusApproved/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<Request>> SetStatusApproved(int id) {
+            var request = await _context.Requests.FindAsync(id);
+            if (request == null) {
+                return NotFound();
+            }
+            request.Status = "Approved";
+            _context.SaveChanges();
+            return Ok();
+        }
+        // GET: api/SetStatusRejected
+        [Route("/api/SetStatusRejected/{id}")]
+        [HttpGet]
+        public async Task<ActionResult<Request>> SetStatusRejected(int id) {
+            var request = await _context.Requests.FindAsync(id);
+            if (request == null) {
+                return NotFound();
+            }
+            request.Status = "Rejected";
+            _context.SaveChanges();
+            return Ok();
+        }
+
 
         // GET: api/RequestsAPI/5
         [HttpGet("{id}")]

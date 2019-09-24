@@ -27,19 +27,17 @@ namespace PRSDatabaseProject.Models {
 
             modelBuilder.Entity<Request>()
                 .Property(t => t.Total)
-                .HasColumnType("decimal(11, 2)");
-
-            modelBuilder.Entity<Request>()
-                .Property(t => t.Total)
+                .HasColumnType("decimal(11, 2)")
                 .HasDefaultValue(0);
 
-            //modelBuilder.Entity<Request>()
-            //    .Property(dm => dm.DeliveryMode)
-            //    .HasDefaultValue("Pickup");
 
-            //modelBuilder.Entity<Request>()
-            //    .Property(s => s.Status)
-            //    .HasDefaultValue("New");
+            modelBuilder.Entity<Request>()
+                .Property(dm => dm.DeliveryMode)
+                .HasDefaultValue("Pickup");
+
+            modelBuilder.Entity<Request>()
+                .Property(s => s.Status)
+                .HasDefaultValue("New");
 
             modelBuilder.Entity<RequestLine>()
                 .Property(q => q.Quantity)

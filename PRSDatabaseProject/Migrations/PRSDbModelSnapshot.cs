@@ -62,7 +62,9 @@ namespace PRSDatabaseProject.Migrations
 
                     b.Property<string>("DeliveryMode")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasDefaultValue("Pickup");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -77,7 +79,9 @@ namespace PRSDatabaseProject.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(10);
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(10)
+                        .HasDefaultValue("New");
 
                     b.Property<decimal>("Total")
                         .ValueGeneratedOnAdd()

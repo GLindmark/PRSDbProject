@@ -41,10 +41,8 @@ namespace PRSDatabaseProject.Models {
         [MaxLength(255)]
         public string Email { get; set; }
 
-        public virtual ICollection<Product> Product { get; set; }
-
-
-
+        public Vendor (){
+        }
     }
 }
 

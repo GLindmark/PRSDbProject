@@ -25,6 +25,7 @@ namespace PRSDatabaseProject {
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.AddCors();
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -32,8 +33,11 @@ namespace PRSDatabaseProject {
             var connection = @"Data Source=DESKTOP-8R894VL\SQLEXPRESS;Initial Catalog=PRSDb;Integrated Security=True;
                                 Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;
                                 MultiSubnetFailover=False";
-            services.AddDbContext<Models.PRSDb>(options => options.UseSqlServer(connection));
-
+            services.AddDbContext<Models.PRSDb>(options => {
+                options.UseLazyLoadingProxies();
+                options.UseSqlServer(connection);
+            }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +51,7 @@ namespace PRSDatabaseProject {
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
 
             app.UseMvc(routes => {
                 routes.MapRoute(

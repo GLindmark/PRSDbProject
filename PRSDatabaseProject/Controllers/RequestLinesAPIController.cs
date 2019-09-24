@@ -55,6 +55,7 @@ namespace PRSDatabaseProject.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                RecalcuateRequestTotal(requestLine.RequestId);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,6 +78,7 @@ namespace PRSDatabaseProject.Controllers
         {
             _context.RequestLines.Add(requestLine);
             await _context.SaveChangesAsync();
+            RecalcuateRequestTotal(requestLine.RequestId);
 
             return CreatedAtAction("GetRequestLine", new { id = requestLine.Id }, requestLine);
         }
@@ -93,8 +95,21 @@ namespace PRSDatabaseProject.Controllers
 
             _context.RequestLines.Remove(requestLine);
             await _context.SaveChangesAsync();
+            RecalcuateRequestTotal(requestLine.RequestId);
 
             return requestLine;
+        }
+
+        private bool RecalcuateRequestTotal(int requestId) {
+            var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+            if (request == null) {
+                return false;
+            }
+            request.Total = _context.RequestLines.Include(l => l.Product)
+            .Where(l => l.RequestId == requestId)
+            .Sum(l => l.Quantity * l.Product.Price);
+            _context.SaveChanges();
+            return true;
         }
 
         private bool RequestLineExists(int id)

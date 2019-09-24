@@ -24,20 +24,21 @@ namespace PRSDatabaseProject.Models {
         [MaxLength(80)]
         public string RejectionReason { get; set; }
 
-        [Required]
+        //[Required]
         [MaxLength(20)]
-        public string DeliveryMode { get; set; } = "Pickup";
+        [DefaultValue("Pickup")]
+        public string DeliveryMode { get; set; }
 
-        [Required]
+        //[Required]
         [MaxLength(10)]
-        public string Status { get; set; } = "New";
+        [DefaultValue("New")]
+        public string Status { get; set; }
 
         [Required]
         public decimal Total { get; set; }
 
         [Required]
         public int UserId { get; set; }
-
 
         [ForeignKey("UserId")]
         public virtual User User { get; set; }

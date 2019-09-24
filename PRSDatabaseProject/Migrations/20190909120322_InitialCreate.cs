@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PRSDatabaseProject.Migrations
 {
-    public partial class DefaultUpdate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -56,8 +56,8 @@ namespace PRSDatabaseProject.Migrations
                     Description = table.Column<string>(maxLength: 80, nullable: false),
                     Justification = table.Column<string>(maxLength: 80, nullable: false),
                     RejectionReason = table.Column<string>(maxLength: 80, nullable: true),
-                    DeliveryMode = table.Column<string>(maxLength: 20, nullable: false),
-                    Status = table.Column<string>(maxLength: 10, nullable: false),
+                    DeliveryMode = table.Column<string>(maxLength: 20, nullable: false, defaultValue: "Pickup"),
+                    Status = table.Column<string>(maxLength: 10, nullable: false, defaultValue: "New"),
                     Total = table.Column<decimal>(type: "decimal(11, 2)", nullable: false, defaultValue: 0m),
                     UserId = table.Column<int>(nullable: false)
                 },

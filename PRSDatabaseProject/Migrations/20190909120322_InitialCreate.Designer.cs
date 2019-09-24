@@ -9,8 +9,8 @@ using PRSDatabaseProject.Models;
 namespace PRSDatabaseProject.Migrations
 {
     [DbContext(typeof(PRSDb))]
-    [Migration("20190907010950_DefaultUpdate")]
-    partial class DefaultUpdate
+    [Migration("20190909120322_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -64,7 +64,9 @@ namespace PRSDatabaseProject.Migrations
 
                     b.Property<string>("DeliveryMode")
                         .IsRequired()
-                        .HasMaxLength(20);
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasDefaultValue("Pickup");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -79,7 +81,9 @@ namespace PRSDatabaseProject.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasMaxLength(10);
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(10)
+                        .HasDefaultValue("New");
 
                     b.Property<decimal>("Total")
                         .ValueGeneratedOnAdd()

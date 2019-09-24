@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -32,13 +33,12 @@ namespace PRSDatabaseProject.Models {
         [MaxLength(255)]
         public string Email { get; set; }
 
-        [Required]
-        public bool IsReviewer { get; set; }
+        //[DefaultValue(true) ]
+        public bool IsReviewer { get; set; } = true;
 
-        [Required]
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; set; } = true;
 
-        public virtual ICollection<Request> Request { get; set; }//Hint to the relationship between Request and User
+        //public virtual ICollection<Request> Request { get; set; }//Hint to the relationship between Request and User
 
     }
 }

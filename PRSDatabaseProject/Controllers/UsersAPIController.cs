@@ -26,22 +26,31 @@ namespace PRSDatabaseProject.Controllers
         {
             return await _context.Users.ToListAsync();
         }
-
         // GET: api/UsersAPI/5
+        [Route("{username}/{password}")]
+        [HttpGet]
+        public async Task<ActionResult<User>> GetUser(string username, string password) {
+            var user = await _context.Users.Where(u => u.Username == username && u.Password == password).FirstOrDefaultAsync();
+
+            if (user == null) {
+                return NotFound();
+            }
+
+            return user;
+        }
+        //GET: api/UsersAPI/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
-        {
+        public async Task<ActionResult<User>> GetUser(int id) {
             var user = await _context.Users.FindAsync(id);
 
-            if (user == null)
-            {
+            if (user == null) {
                 return NotFound();
             }
 
             return user;
         }
 
-        // PUT: api/UsersAPI/5
+       // PUT: api/UsersAPI/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutUser(int id, User user)
         {

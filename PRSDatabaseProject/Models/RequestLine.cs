@@ -17,15 +17,15 @@ namespace PRSDatabaseProject.Models {
         [Required]
         public int ProductId { get; set; }
 
-        [Required]
-        public int Quantity { get; set; }
+        //[Required]
+        public int Quantity { get; set; } = 1;
 
 
         [ForeignKey("RequestId")]
-        public Request Request { get; set; }
+        public virtual Request Request { get; set; }
 
         [ForeignKey("ProductId")]
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
 
     }
 }
