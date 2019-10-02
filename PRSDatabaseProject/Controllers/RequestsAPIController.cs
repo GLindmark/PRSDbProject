@@ -44,7 +44,14 @@ namespace PRSDatabaseProject.Controllers
             if (request == null) {
                 return NotFound();
             }
+            if (request.Total <= 50) {
+                request.Status = "Approved";
+            }
+
+            else {
+
             request.Status = "Review";
+            }
             _context.SaveChanges();
             return Ok();
         }

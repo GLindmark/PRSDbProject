@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PRSDatabaseProject.Models {
     public class RequestLine {
@@ -22,6 +23,7 @@ namespace PRSDatabaseProject.Models {
 
 
         [ForeignKey("RequestId")]
+        [JsonIgnore]
         public virtual Request Request { get; set; }
 
         [ForeignKey("ProductId")]
